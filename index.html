@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Subnet Lab</title>
+<style>
+:root{color-scheme:dark;--bg:#f7f9fc;--panel:#fff;--ink:#15253b;--muted:#5e7085;--line:#dbe4ef;--net:#168467;--netsoft:#dff7ec;--host:#2568b7;--hostsoft:#e2efff;--accent:#2262a9;--highlight:#f0ab36;--bad:#b33b3b}
+*{box-sizing:border-box}body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe
+UI,Arial,sans-serif;background:var(--bg);color:var(--ink);margin:0;line-height:1.5}main{max-width:1070px;margin:auto;padding:28px
+18px 55px}header{margin:0 0
+20px}h1{font-size:clamp(26px,4vw,38px);letter-spacing:-.04em;margin:0}h2{font-size:19px;letter-spacing:-.015em;margin:0
+0 12px}p{color:var(--muted);margin:6px 0 10px}.subhead{font-size:15px}.panel{background:var(--panel);border:1px solid
+var(--line);border-radius:16px;padding:19px;margin-top:16px;box-shadow:0 1px 2px
+#354d6612}.controls{display:grid;grid-template-columns:1fr
+170px;gap:16px;align-items:end}.field{display:flex;flex-direction:column;gap:7px}.field
+label{font-weight:650;font-size:13px}input{width:100%;border:1px solid
+var(--line);border-radius:9px;background:var(--panel);color:var(--ink);padding:11px 12px;font:600 18px
+ui-monospace,Consolas,monospace}input:focus{outline:2px solid
+var(--accent);outline-offset:1px}.presets{display:flex;flex-wrap:wrap;gap:7px;margin-top:14px}button{background:var(--bg);color:var(--ink);border:1px
+solid var(--line);font:600 13px ui-sans-serif,system-ui;padding:8px
+12px;cursor:pointer;border-radius:9px}button:hover{border-color:var(--accent)}button.active{background:var(--accent);color:#fff;border-color:var(--accent)}.error{color:var(--bad);font-size:13px;min-height:22px;margin-top:4px}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.stat{border:1px
+solid var(--line);border-radius:10px;padding:13px;min-width:0}.stat
+label{display:block;color:var(--muted);font-size:12px;margin-bottom:3px}.stat strong{font:650 16px
+ui-monospace,SFMono-Regular,Consolas,monospace;overflow-wrap:anywhere}.stat.emphasis{border-color:#86b9a8;background:var(--netsoft)}.stat.broadcast{border-color:#d5b36f;background:#fffae8}.stat.host{border-color:#a7c9f1;background:var(--hostsoft)}.flex{display:flex;gap:9px;align-items:center;flex-wrap:wrap}.legend{display:inline-flex;align-items:center;gap:6px;color:var(--muted);font-size:13px}.swatch{height:11px;width:11px;border-radius:2px;background:var(--net)}.swatch.host{background:var(--host)}.bitbar{display:flex;gap:2px;flex-wrap:nowrap;width:100%;margin:12px
+0 7px}.bitbar span{height:17px;min-width:0;flex:1;background:var(--net);border-radius:2px}.bitbar
+.host{background:var(--host)}.binary-wrap{overflow-x:auto}.binary{min-width:690px}.bitrow{display:flex;align-items:center;gap:12px;margin:12px
+0}.rowtitle{width:100px;flex:0 0
+100px;color:var(--muted);font-size:12px;font-weight:650}.octetset{display:flex;align-items:center;gap:6px;flex:1}.octet{display:flex;flex:1;min-width:0;gap:2px}.bit{font-family:ui-monospace,Consolas,monospace;font-size:15px;font-weight:700;text-align:center;flex:1;border-radius:4px;padding:5px
+0;background:var(--netsoft);color:#09694e}.bit.host{background:var(--hostsoft);color:#175997}.dot{font-size:24px;color:var(--muted);width:9px;text-align:center}.note{font-size:13px;color:var(--muted)}.callout{margin:15px
+0 0;padding:10px
+12px;border-radius:9px;background:var(--bg);font-size:14px}.boundarygrid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:14px
+0}.bblock{border:1px solid var(--line);border-radius:10px;padding:10px;text-align:center}.bblock.current{border:2px
+solid var(--accent);background:var(--hostsoft);padding:9px}.bblock strong{display:block;font:700 17px
+ui-monospace,Consolas,monospace}.bblock
+small{font-size:11px;color:var(--muted)}.steps{font-size:14px;color:var(--ink);background:var(--bg);padding:13px;border-radius:10px}.steps
+code{color:var(--accent);font-weight:700}.tiny{font-size:12px}footer{margin-top:20px;font-size:12px;color:var(--muted)}@media(max-width:790px){.stats{grid-template-columns:repeat(2,1fr)}.boundarygrid{grid-template-columns:repeat(3,1fr)}.controls{grid-template-columns:1fr
+125px}}@media(max-width:420px){.stats{grid-template-columns:1fr}.boundarygrid{grid-template-columns:repeat(2,1fr)}}@media all {:root{--bg:#101925;--panel:#182536;--ink:#e7edf8;--muted:#a9bbd1;--line:#33435a;--netsoft:#173f37;--hostsoft:#18334e;--accent:#70b5fa}.stat.emphasis{background:#173f37;border-color:#417761}.stat.broadcast{background:#3a3120;border-color:#71603d}.stat.host{background:#18334e;border-color:#38698f}.bit{color:#b3f8d7}.bit.host{color:#b8deff}.bblock.current{background:#18334e}.callout{background:#253448}}
+</style>
+</head>
+<body>
+<main>
+<header><h1>IPv4 Subnet Lab</h1><p class="subhead">Explore how a prefix changes network/host bits, subnet boundaries, and usable address ranges.</p></header>
+<section class="panel">
+  <div class="controls"><div class="field"><label for="ip">IPv4 address</label><input id="ip" spellcheck="false" inputmode="decimal" value="172.16.35.50" aria-label="IPv4 address"></div><div class="field"><label for="prefix">CIDR prefix</label><input id="prefix" type="number" min="0" max="32" step="1" value="20"></div></div>
+  <div class="presets" role="group" aria-label="Example subnets"><button data-example="172.16.35.50/20">/20 mixed 3rd</button><button data-example="192.168.11.200/23">/23 mixed 3rd</button><button data-example="192.168.10.150/26">/26 mixed 4th</button><button data-example="192.168.1.80/27">/27 boundary 32</button><button data-example="192.168.100.112/28">/28 boundary 16</button><button data-example="192.168.100.112/27">/27 misalignment</button></div>
+  <div id="error" class="error" aria-live="polite"></div>
+</section>
+<section class="panel"><h2>Calculated subnet</h2><div class="stats" id="stats" aria-live="polite"></div><p id="explain" class="note"></p></section>
+<section class="panel"><h2>32-bit structure</h2><div class="flex"><span class="legend"><span class="swatch"></span>Network bits (1 in mask)</span><span class="legend"><span class="swatch host"></span>Host bits (0 in mask)</span></div><div class="bitbar" id="bitbar"></div><p id="bitsummary" class="note"></p><div class="binary-wrap"><div class="binary" id="binary"></div></div><div class="callout" id="octetexplain"></div></section>
+<section class="panel"><h2>Subnet boundaries in the interesting octet</h2><div id="boundaryintro" class="note"></div><div class="boundarygrid" id="boundaries"></div><div id="boundarydetail" class="steps"></div></section>
+<footer>Math: Network = IP bitwise AND mask. Broadcast = network OR inverse mask (ordinary subnets). An octet's increment is not necessarily the total number of IPv4 addresses in the subnet. `/31` and `/32` use special endpoint conventions.</footer>
+</main>
+<script>
+'use strict';
+const $=s=>document.querySelector(s),ipField=$('#ip'),prefixField=$('#prefix');
+function parseIP(s){const parts=s.trim().split('.');if(parts.length!==4||parts.some(x=>!/^\d{1,3}$/.test(x)||Number(x)>255))return null;return parts.map(Number)}
+function toInt(a){return (((a[0]<<24)>>>0)|(a[1]<<16)|(a[2]<<8)|a[3])>>>0}
+function toOctets(n){return [(n>>>24)&255,(n>>>16)&255,(n>>>8)&255,n&255]}
+function addr(n){return toOctets(n).join('.')}
+function binary(v){return v.toString(2).padStart(8,'0')}
+function safeText(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function stat(label,value,cls=''){return `<div class="stat ${cls}"><label>${label}</label><strong>${safeText(value)}</strong></div>`}
+function bitRow(title,octets,p){let content=`<div class="bitrow"><div class="rowtitle">${title}</div><div class="octetset">`;octets.forEach((n,i)=>{content+=`<div class="octet">`;binary(n).split('').forEach((bit,b)=>{content+=`<span class="bit ${i*8+b>=p?'host':''}">${bit}</span>`});content+='</div>';if(i!==3)content+='<span class="dot">.</span>'});return content+'</div></div>'}
+function paint(){const a=parseIP(ipField.value),p=Number(prefixField.value);if(!a||!Number.isInteger(p)||p<0||p>32){$('#error').textContent='Enter four decimal octets (0–255) and a prefix from /0 to /32.';for(const id of ['stats','bitbar','bitsummary','binary','octetexplain','boundaryintro','boundaries','boundarydetail'])$('#'+id).innerHTML='';return}$('#error').textContent='';const ip=toInt(a),mask=p===0?0:(0xffffffff << (32-p))>>>0,network=(ip&mask)>>>0,broadcast=(network|((~mask)>>>0))>>>0,total=2**(32-p),h=32-p;let first,last,usable;if(p<=30){first=addr(network+1);last=addr(broadcast-1);usable=total-2}else if(p===31){first=addr(network);last=addr(broadcast);usable=2}else{first=addr(ip);last=addr(ip);usable=1}
+const maskarr=toOctets(mask),partial=p%8!==0,interesting=partial?Math.floor(p/8):-1,maskValue=partial?maskarr[interesting]:null,increment=partial?256-maskValue:null;
+$('#stats').innerHTML=stat('Containing network',`${addr(network)}/${p}`,'emphasis')+stat('Subnet mask',addr(mask))+stat(p<=30?'Broadcast address':'Broadcast',p<=30?addr(broadcast):'Not used','broadcast')+stat('Total addresses',total.toLocaleString())+stat('First usable / endpoint',first,'host')+stat('Last usable / endpoint',last,'host')+stat('Usable hosts / endpoints',usable.toLocaleString())+stat('Host bits',String(h));
+$('#explain').textContent=p<=30?'Network and broadcast are the first and last addresses of the full subnet. Only the addresses between them are ordinarily assigned to hosts.':p===31?'On a /31 point-to-point link, both endpoint addresses can be used; there is no ordinary broadcast address.':'A /32 represents one individual IPv4 address (host route), not an ordinary subnet with a broadcast.';
+$('#bitbar').innerHTML=Array.from({length:32},(_,i)=>`<span class="${i>=p?'host':''}" title="Bit ${i+1}: ${i<p?'network':'host'}"></span>`).join('');$('#bitsummary').innerHTML=`<strong>${p} network bits</strong> and <strong>${h} host bits</strong>. The division ${partial?'falls <strong>inside</strong> octet '+(interesting+1):'lies <strong>between octets</strong>'}.`;
+$('#binary').innerHTML=bitRow('IP address',a,p)+bitRow('Subnet mask',maskarr,p)+bitRow('Network',toOctets(network),p)+bitRow('Last address',toOctets(broadcast),p);
+if(partial){$('#octetexplain').innerHTML=`<strong>Mixed octet ${interesting+1}:</strong> ${p%8} network bits and ${8-p%8} host bits. Mask octet <code>${maskValue}</code> = <code>${binary(maskValue)}</code>. The other ${3-interesting} octet(s) to its right (if any) are entirely host bits.`;let ipval=a[interesting],nstart=toOctets(network)[interesting],nend=toOctets(broadcast)[interesting];$('#boundaryintro').textContent=`Increment = 256 − ${maskValue} = ${increment}. These are fixed, valid network boundaries in octet ${interesting+1}; the blue range contains your IP octet (${ipval}).`;let ranges=[];let k=Math.floor(ipval/increment);for(let j=Math.max(0,k-2);j<=Math.min(256/increment-1,k+2);j++){const b=j*increment,e=b+increment-1;ranges.push(`<div class="bblock ${j===k?'current':''}"><strong>${b}–${e}</strong><small>${j===k?'Containing block':'Adjacent block'}</small></div>`)}$('#boundaries').innerHTML=ranges.join('');const right=3-interesting,mult=256**right;$('#boundarydetail').innerHTML=`<div><strong>Boundary calculation:</strong> <code>256 − ${maskValue} = ${increment}</code> (in octet ${interesting+1}).</div><div><strong>Full subnet size:</strong> <code>${increment}${right?' × '+(right===1?'256':'256^'+right):''} = ${total.toLocaleString()}</code> addresses.</div><div><strong>Containing octet range:</strong> <code>${nstart}–${nend}</code>. Other host octets run from 0 to 255.</div>`;
+}else{$('#octetexplain').textContent=`The /${p} boundary is exactly between octets. There is no mixed octet and no partial mask value to subtract from 256.`;$('#boundaryintro').textContent='For an octet-aligned prefix, all host octets range from 0 to 255. The subnet starts when every host octet is zero.';$('#boundaries').innerHTML='<div class="bblock current" style="grid-column:span 3"><strong>Octet-aligned</strong><small>No partially mixed octet</small></div>';$('#boundarydetail').innerHTML=`<strong>Full subnet size:</strong> <code>2^${h} = ${total.toLocaleString()}</code> addresses. Network bits = ${p}, host bits = ${h}.`}
+for(const btn of document.querySelectorAll('[data-example]')){btn.classList.toggle('active',btn.dataset.example===`${a.join('.')}/${p}`)}
+}
+ipField.addEventListener('input',paint);prefixField.addEventListener('input',paint);document.querySelectorAll('[data-example]').forEach(b=>b.addEventListener('click',()=>{const [ip,p]=b.dataset.example.split('/');ipField.value=ip;prefixField.value=p;paint()}));paint();
+</script>
+</body></html>
